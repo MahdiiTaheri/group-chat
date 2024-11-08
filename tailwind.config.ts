@@ -60,6 +60,8 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        "chat-gradient-1": "#2d31fb",
+        "chat-gradient-2": "#2d69fb",
       },
     },
   },

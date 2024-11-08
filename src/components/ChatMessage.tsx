@@ -16,7 +16,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
         "inline-block p-3 text-sm rounded-lg",
         "max-w-[75%] break-words",
         isUserMessage
-          ? "self-start bg-[#2d55fb] text-white shadow-md"
+          ? "self-start bg-gradient-to-tr from-chat-gradient-1 to-chat-gradient-2 text-white shadow-md"
           : "self-end bg-gray-400 text-gray-800"
       )}
     >
