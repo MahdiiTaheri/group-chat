@@ -14,7 +14,23 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    // ...
+    console.log(`User connected: ${socket.id}`);
+
+    socket.emit("message", {
+      userId: "server",
+      content: `Welcome to the chat! Your ID is ${socket.id}`,
+    });
+
+    socket.on("sendMessage", (message) => {
+      io.emit("receiveMessage", {
+        userId: socket.id,
+        content: message.content,
+      });
+    });
+
+    socket.on("disconnect", () => {
+      console.log(`User disconnected: ${socket.id}`);
+    });
   });
 
   httpServer
