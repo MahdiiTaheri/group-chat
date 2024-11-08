@@ -1,5 +1,6 @@
 "use client";
 
+import ChatInput from "@/components/ChatInput";
 import ChatScreen from "@/components/ChatScreen";
 import { useSocket } from "@/context/SocketProvider";
 
@@ -7,7 +8,7 @@ const ChatPage = () => {
   const { isConnected, transport } = useSocket();
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between bg-gray-500 p-4">
+    <div className="flex h-screen flex-col items-center justify-between bg-white p-4">
       <h2 className="mb-4 text-xl font-semibold text-white">Chat</h2>
 
       {/* Connection Status */}
@@ -20,6 +21,8 @@ const ChatPage = () => {
       </div>
 
       <ChatScreen />
+
+      <ChatInput />
     </div>
   );
 };
