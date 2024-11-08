@@ -8,18 +8,7 @@ import React, {
   useCallback,
 } from "react";
 import { socket } from "../socket";
-
-type Message = {
-  userId?: string;
-  content: string;
-};
-
-type SocketContextType = {
-  messages: Message[];
-  sendMessage: (content: string) => void;
-  isConnected: boolean;
-  transport: string;
-};
+import { Message, SocketContextType } from "@/types";
 
 const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
