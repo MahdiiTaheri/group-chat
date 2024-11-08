@@ -1,20 +1,37 @@
 "use client";
 
+import Image from "next/image";
+import dynamic from "next/dynamic";
+
+import backgroundImage from "../../public/background.jpg";
 import { useSocket } from "@/context/SocketProvider";
-import ChatMessage from "@/components/ChatMessage";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "./ui/scroll-area";
+
+const ChatMessage = dynamic(() => import("@/components/ChatMessage"));
 
 const ChatScreen = () => {
   const { messages } = useSocket();
 
+  console.log(messages);
+
   return (
-    <ScrollArea className="flex-grow w-full max-w-xl rounded-lg border border-gray-200 px-6 py-3 shadow-md bg-chat-screen bg-cover">
-      <div className="space-y-3 w-full flex flex-col ">
-        {messages.map((message, index) => (
-          <ChatMessage key={index} message={message} />
-        ))}
-      </div>
-    </ScrollArea>
+    <div className="relative flex-grow w-full max-w-xl rounded-lg border border-gray-200 shadow-md">
+      <Image
+        src={backgroundImage}
+        alt="Chat background"
+        layout="fill"
+        objectFit="cover"
+        className="z-0"
+      />
+
+      <ScrollArea className="relative flex-grow w-full px-6 py-3">
+        <div className="w-full flex flex-col gap-4">
+          {messages.map((message, index) => (
+            <ChatMessage key={index} message={message} />
+          ))}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };
 

@@ -1,27 +1,14 @@
-"use client";
+import dynamic from "next/dynamic";
 
-import ChatInput from "@/components/ChatInput";
-import ChatScreen from "@/components/ChatScreen";
-import { useSocket } from "@/context/SocketProvider";
+const ChatHeader = dynamic(() => import("@/components/ChatHeader"));
+const ChatInput = dynamic(() => import("@/components/ChatInput"));
+const ChatScreen = dynamic(() => import("@/components/ChatScreen"));
 
 const ChatPage = () => {
-  const { isConnected, transport } = useSocket();
-
   return (
-    <div className="flex h-screen flex-col items-center justify-between bg-white p-4">
-      <h2 className="mb-4 text-xl font-semibold text-white">Chat</h2>
-
-      {/* Connection Status */}
-      <div className="mb-2 text-sm text-gray-500">
-        {isConnected ? (
-          <span className="text-green-500">Connected via {transport}</span>
-        ) : (
-          <span className="text-red-500">Disconnected</span>
-        )}
-      </div>
-
+    <div className="flex h-screen flex-col items-center justify-between bg-gradient-to-r from-gray-100 to-gray-200 p-4">
+      <ChatHeader />
       <ChatScreen />
-
       <ChatInput />
     </div>
   );
