@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSocket } from "@/context/SocketProvider";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send, Trash } from "lucide-react";
+import { Send, X } from "lucide-react";
 
 const ChatInput = () => {
   const { sendMessage } = useSocket();
@@ -29,7 +29,7 @@ const ChatInput = () => {
       <Button
         onClick={handleSendMessage}
         size="lg"
-        className="h-12 px-6 text-lg bg-chat-gradient-1 hover:bg-chat-gradient-2 shadow-lg"
+        className="h-12 px-6 text-lg bg-chat-message-1 hover:bg-chat-message-2 shadow-lg hover:scale-105"
       >
         Send
         <Send />
@@ -39,10 +39,10 @@ const ChatInput = () => {
         onClick={() => setInput("")}
         variant="outline"
         size="lg"
-        className="h-12 px-6 text-lg hover:border-red-700 hover:bg-red-100"
+        className="h-12 px-6 text-lg hover:border-red-700 hover:bg-red-100 hover:scale-105"
         disabled={input.length === 0}
       >
-        <Trash className="stroke-red-700" />
+        <X className="stroke-red-700" />
       </Button>
     </div>
   );
