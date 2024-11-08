@@ -15,7 +15,7 @@ const ChatScreen = () => {
   console.log(messages);
 
   return (
-    <div className="relative flex-grow w-full max-w-xl rounded-lg border border-gray-200 shadow-md">
+    <ScrollArea className="relative flex-grow w-full max-w-xl rounded-lg border border-gray-200 shadow-md px-6 py-1">
       <Image
         src={backgroundImage}
         alt="Chat background"
@@ -24,14 +24,14 @@ const ChatScreen = () => {
         className="z-0"
       />
 
-      <ScrollArea className="relative flex-grow w-full px-6 py-3">
+      <div className="relative flex-grow w-full">
         <div className="w-full flex flex-col gap-4">
           {messages.map((message, index) => (
             <ChatMessage key={index} message={message} />
           ))}
         </div>
-      </ScrollArea>
-    </div>
+      </div>
+    </ScrollArea>
   );
 };
 
