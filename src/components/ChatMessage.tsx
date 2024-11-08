@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { cn } from "@/lib/utils";
 import { Message } from "@/types";
 
@@ -14,10 +13,11 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
   return (
     <div
       className={cn(
-        "max-w-xs p-2 text-sm rounded-lg",
+        "inline-block p-3 text-sm rounded-lg",
+        "max-w-[75%] break-words",
         isUserMessage
-          ? "self-end bg-zinc-500 text-white"
-          : "self-start bg-gray-200 text-gray-800"
+          ? "self-start bg-[#2d55fb] text-white shadow-md"
+          : "self-end bg-gray-400 text-gray-800"
       )}
     >
       {message.content}

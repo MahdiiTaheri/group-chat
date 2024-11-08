@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useSocket } from "@/context/SocketProvider";
 import ChatMessage from "@/components/ChatMessage";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -9,8 +8,8 @@ const ChatScreen = () => {
   const { messages } = useSocket();
 
   return (
-    <ScrollArea className="flex-grow w-full max-w-xl rounded-lg border border-gray-800 bg-[#f7f9fc] p-4 shadow-md">
-      <div className="space-y-4">
+    <ScrollArea className="flex-grow w-full max-w-xl rounded-lg border border-gray-200 px-6 py-3 shadow-md bg-chat-screen bg-cover">
+      <div className="space-y-3 w-full flex flex-col ">
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
         ))}
