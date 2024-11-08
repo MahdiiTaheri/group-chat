@@ -42,11 +42,13 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("receiveMessage", onReceiveMessage);
+    socket.on("serverMessage", onReceiveMessage);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("receiveMessage", onReceiveMessage);
+      socket.off("serverMessage", onReceiveMessage);
     };
   }, []);
 

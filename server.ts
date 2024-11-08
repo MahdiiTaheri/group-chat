@@ -16,9 +16,14 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.emit("message", {
+    // socket.emit("message", {
+    //   userId: "server",
+    //   content: `Welcome to the chat! Your ID is ${socket.id}`,
+    // });
+
+    socket.broadcast.emit("serverMessage", {
       userId: "server",
-      content: `Welcome to the chat! Your ID is ${socket.id}`,
+      content: `A new user connected to session with ID: ${socket.id}`,
     });
 
     socket.on("sendMessage", (message) => {
