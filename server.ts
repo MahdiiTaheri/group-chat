@@ -16,11 +16,6 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    // socket.emit("message", {
-    //   userId: "server",
-    //   content: `Welcome to the chat! Your ID is ${socket.id}`,
-    // });
-
     socket.broadcast.emit("serverMessage", {
       userId: "server",
       content: `A new user connected to session with ID: ${socket.id}`,
@@ -35,6 +30,11 @@ app.prepare().then(() => {
 
     socket.on("disconnect", () => {
       console.log(`User disconnected: ${socket.id}`);
+
+      io.emit("serverMessage", {
+        userId: "server",
+        content: `User with ID: ${socket.id} has disconnected.`,
+      });
     });
   });
 

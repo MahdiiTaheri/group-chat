@@ -21,6 +21,7 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
     if (socket.connected) {
       onConnect();
     }
+
     function onConnect() {
       setIsConnected(true);
       setTransport(socket.io.engine.transport.name);
@@ -39,16 +40,23 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
       setMessages((prevMessages) => [...prevMessages, message]);
     }
 
+    function onServerMessage(message: Message) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { userId: "server", content: message.content },
+      ]);
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("receiveMessage", onReceiveMessage);
-    socket.on("serverMessage", onReceiveMessage);
+    socket.on("serverMessage", onServerMessage);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("receiveMessage", onReceiveMessage);
-      socket.off("serverMessage", onReceiveMessage);
+      socket.off("serverMessage", onServerMessage);
     };
   }, []);
 
