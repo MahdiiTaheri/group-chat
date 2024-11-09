@@ -7,12 +7,12 @@ function ChatHeader() {
 
   return (
     <>
-      <h2 className="mb-5 text-xl font-semibold text-white bg-gradient-to-tr from-header-1 to-header-2 p-2 rounded-lg w-1/4 text-center tracking-widest">
+      <h2 className="mb-5 text-xl font-semibold text-white bg-gradient-to-tr from-header-1 to-header-2 p-2 rounded-lg md:w-1/4 w-1/2 text-center tracking-widest">
         Group Chat
       </h2>
 
       {/* Connection Status */}
-      <div className="mb-4 text-sm">
+      <div className="mb-8 text-sm">
         {isConnected ? (
           <span className="text-white bg-gradient-to-tr from-transport-1 to-transport-2 p-2 rounded-lg">
             Connected via{" "}

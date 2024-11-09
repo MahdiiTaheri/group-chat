@@ -15,7 +15,7 @@ const ChatScreen = () => {
   console.log(messages);
 
   return (
-    <ScrollArea className="relative flex-grow w-full max-w-xl rounded-lg border border-gray-200 shadow-md px-6 py-1">
+    <ScrollArea className="relative flex-grow w-full max-w-md md:max-w-2xl lg:max-w-3xl rounded-lg border border-gray-200 shadow-md px-6 py-1">
       <Image
         src={backgroundImage}
         alt="Chat background"
