@@ -47,16 +47,24 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
       ]);
     }
 
+    function onDeleteMessage(messageId: string) {
+      setMessages((prevMessages) =>
+        prevMessages.filter((message) => message.id !== messageId)
+      );
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("receiveMessage", onReceiveMessage);
     socket.on("serverMessage", onServerMessage);
+    socket.on("deleteMessage", onDeleteMessage);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("receiveMessage", onReceiveMessage);
       socket.off("serverMessage", onServerMessage);
+      socket.off("deleteMessage", onDeleteMessage);
     };
   }, []);
 
@@ -65,9 +73,13 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
     socket.emit("sendMessage", message);
   }, []);
 
+  const deleteMessage = useCallback((messageId: string) => {
+    socket.emit("deleteMessage", messageId);
+  }, []);
+
   return (
     <SocketContext.Provider
-      value={{ messages, sendMessage, isConnected, transport }}
+      value={{ messages, sendMessage, isConnected, transport, deleteMessage }}
     >
       {children}
     </SocketContext.Provider>

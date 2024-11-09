@@ -22,10 +22,16 @@ app.prepare().then(() => {
     });
 
     socket.on("sendMessage", (message) => {
-      io.emit("receiveMessage", {
+      const messageWithId = {
+        id: `${Date.now()}-${socket.id}`,
         userId: socket.id,
         content: message.content,
-      });
+      };
+      io.emit("receiveMessage", messageWithId);
+    });
+
+    socket.on("deleteMessage", (messageId) => {
+      io.emit("deleteMessage", messageId);
     });
 
     socket.on("disconnect", () => {

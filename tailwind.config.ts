@@ -69,6 +69,7 @@ const config: Config = {
         "transport-1": "#006400",
         "transport-2": "#008000",
       },
+      display: ["group-hover"],
     },
   },
   plugins: [require("tailwindcss-animate")],
