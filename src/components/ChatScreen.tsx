@@ -6,11 +6,19 @@ import dynamic from "next/dynamic";
 import backgroundImage from "../../public/background.jpg";
 import { useSocket } from "@/context/SocketProvider";
 import { ScrollArea } from "./ui/scroll-area";
+import { useEffect, useRef } from "react";
 
 const ChatMessage = dynamic(() => import("@/components/ChatMessage"));
 
 const ChatScreen = () => {
   const { messages } = useSocket();
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   console.log(messages);
 
@@ -29,6 +37,7 @@ const ChatScreen = () => {
           {messages.map((message, index) => (
             <ChatMessage key={index} message={message} />
           ))}
+          <div ref={messagesEndRef} />
         </div>
       </div>
     </ScrollArea>
