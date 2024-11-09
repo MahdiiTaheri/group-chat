@@ -1,6 +1,8 @@
 "use client";
 
 import { useSocket } from "@/context/SocketProvider";
+import { statusProps } from "@/lib/motions";
+import { motion } from "framer-motion";
 
 function ChatHeader() {
   const { isConnected, transport } = useSocket();
@@ -12,7 +14,7 @@ function ChatHeader() {
       </h2>
 
       {/* Connection Status */}
-      <div className="mb-8 text-sm">
+      <motion.div className="mb-8 text-sm" {...statusProps}>
         {isConnected ? (
           <span className="text-white bg-gradient-to-tr from-transport-1 to-transport-2 p-2 rounded-lg">
             Connected via{" "}
@@ -23,7 +25,7 @@ function ChatHeader() {
             Disconnected
           </span>
         )}
-      </div>
+      </motion.div>
     </>
   );
 }
