@@ -29,7 +29,7 @@ const ChatInput = () => {
       <Button
         onClick={handleSendMessage}
         size="lg"
-        className="md:h-12 h-10 md:px-6 px-4 lg:text-lg md:text-base sm:text-sm bg-chat-message-1 hover:bg-chat-message-2 shadow-lg hover:scale-105"
+        className="md:h-12 h-10 md:px-6 px-4 lg:text-lg md:text-base sm:text-sm bg-chat-message-1 hover:bg-chat-message-2 shadow-lg"
       >
         Send
         <Send />
