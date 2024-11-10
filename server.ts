@@ -18,7 +18,7 @@ app.prepare().then(() => {
 
     socket.broadcast.emit("serverMessage", {
       userId: "server",
-      content: `A new user connected to session with ID: ${socket.id}`,
+      content: `A new user connected with ID: ${socket.id}`,
     });
 
     socket.on("sendMessage", (message) => {
