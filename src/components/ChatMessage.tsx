@@ -5,7 +5,7 @@ import { springMotionProps } from "@/lib/motions";
 import { cn } from "@/lib/utils";
 import { Message } from "@/types";
 import { motion } from "framer-motion";
-import { Check, Trash2, X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 
 interface ChatMessageProps {

@@ -7,6 +7,7 @@ import backgroundImage from "../../public/background.jpg";
 import { useSocket } from "@/context/SocketProvider";
 import { ScrollArea } from "./ui/scroll-area";
 import { useEffect, useRef } from "react";
+import { AnimatePresence } from "framer-motion";
 
 const ChatMessage = dynamic(() => import("@/components/ChatMessage"));
 
@@ -34,10 +35,12 @@ const ChatScreen = () => {
 
       <div className="relative flex-grow w-full">
         <div className="w-full flex flex-col gap-4">
-          {messages.map((message, index) => (
-            <ChatMessage key={index} message={message} />
-          ))}
-          <div ref={messagesEndRef} />
+          <AnimatePresence>
+            {messages.map((message, index) => (
+              <ChatMessage key={index} message={message} />
+            ))}
+            <div ref={messagesEndRef} />
+          </AnimatePresence>
         </div>
       </div>
     </ScrollArea>
