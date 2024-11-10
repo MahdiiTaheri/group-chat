@@ -36,8 +36,8 @@ const ChatScreen = () => {
       <div className="relative flex-grow w-full">
         <div className="w-full flex flex-col gap-4">
           <AnimatePresence>
-            {messages.map((message, index) => (
-              <ChatMessage key={index} message={message} />
+            {messages.map((message) => (
+              <ChatMessage key={message.id} message={message} />
             ))}
             <div ref={messagesEndRef} />
           </AnimatePresence>

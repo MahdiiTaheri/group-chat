@@ -43,7 +43,7 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
     function onServerMessage(message: Message) {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { userId: "server", content: message.content },
+        { id: message.id, userId: "server", content: message.content },
       ]);
     }
 

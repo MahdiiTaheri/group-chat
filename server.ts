@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import next from "next";
 import { Server } from "socket.io";
+import { v4 as uuidv4 } from "uuid";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -17,13 +18,14 @@ app.prepare().then(() => {
     console.log(`User connected: ${socket.id}`);
 
     socket.broadcast.emit("serverMessage", {
+      id: uuidv4(),
       userId: "server",
       content: `A new user connected with ID: ${socket.id}`,
     });
 
     socket.on("sendMessage", (message) => {
       const messageWithId = {
-        id: `${Date.now()}-${socket.id}`,
+        id: uuidv4(),
         userId: socket.id,
         content: message.content,
       };
@@ -38,6 +40,7 @@ app.prepare().then(() => {
       console.log(`User disconnected: ${socket.id}`);
 
       io.emit("serverMessage", {
+        id: uuidv4(),
         userId: "server",
         content: `User with ID: ${socket.id} has disconnected.`,
       });

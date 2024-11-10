@@ -22,9 +22,10 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
         "relative inline-block p-3 text-md rounded-lg font-semibold group",
         "max-w-[75%] break-words",
         isUserMessage
-          ? "self-start bg-gradient-to-tr from-chat-message-1 to-chat-message-2 text-white shadow-md"
-          : "self-end bg-gradient-to-tr from-server-message-1 to-server-message-2 text-white"
+          ? "self-start bg-gradient-to-tr from-chat-message-1 to-chat-message-2 text-white shadow-lg"
+          : "self-end bg-gradient-to-tr from-server-message-1 to-server-message-2 text-white shadow-lg"
       )}
+      layout={true}
       {...springMotionProps}
     >
       {message.content}
@@ -34,7 +35,12 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
         onClick={() => {
           deleteMessage(message.id!);
           toast("Message deleted successfully", {
-            cancel: { label: <X className="w-5 h-5" />, onClick: () => {} },
+            cancel: {
+              label: <X className="w-5 h-5" />,
+              onClick: () => {
+                //...
+              },
+            },
           });
         }}
       >
