@@ -1,42 +1,19 @@
 {
-  "name": "group-chat",
-  "version": "0.1.0",
+  "name": "group-chat-monorepo",
+  "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@radix-ui/react-scroll-area": "^1.2.0",
-    "@radix-ui/react-slot": "^1.1.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^11.11.11",
-    "lucide-react": "^0.454.0",
-    "next": "14.2.3",
-    "next-themes": "^0.4.3",
-    "react": "^18",
-    "react-dom": "^18",
-    "sharp": "^0.33.5",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
-    "sonner": "^1.7.0",
-    "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7",
-    "tsx": "^4.19.2",
-    "uuid": "^11.0.2"
+    "dev:web": "pnpm --filter group-chat-front dev",
+    "dev:server": "pnpm --filter group-chat-backend dev",
+    "dev": "pnpm exec concurrently \"pnpm run dev:server\" \"pnpm run dev:web\"",
+    "build:web": "pnpm --filter group-chat-front build",
+    "build:server": "pnpm --filter group-chat-backend build",
+    "build": "pnpm run build:server && pnpm run build:web",
+    "start:server": "pnpm --filter group-chat-backend start",
+    "start:web": "pnpm --filter group-chat-front start",
+    "start": "pnpm exec concurrently \"pnpm run start:server\" \"pnpm run start:web\""
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "concurrently": "^8.2.0"
   }
 }
