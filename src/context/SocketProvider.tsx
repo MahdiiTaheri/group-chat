@@ -1,12 +1,13 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useContext,
   useEffect,
   useState,
   useCallback,
 } from "react";
+import { toast } from "sonner";
 import { socket } from "../socket";
 import { Message, SocketContextType } from "@/types";
 
@@ -16,15 +17,15 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
+  const [socketId, setSocketId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (socket.connected) {
-      onConnect();
-    }
+    if (socket.connected) onConnect();
 
     function onConnect() {
       setIsConnected(true);
       setTransport(socket.io.engine.transport.name);
+      setSocketId(socket.id);
 
       socket.io.engine.on("upgrade", (transport) => {
         setTransport(transport.name);
@@ -34,23 +35,28 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
     function onDisconnect() {
       setIsConnected(false);
       setTransport("N/A");
+      setSocketId(undefined);
     }
 
     function onReceiveMessage(message: Message) {
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prev) => [...prev, message]);
     }
 
     function onServerMessage(message: Message) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: message.id, userId: "server", content: message.content },
-      ]);
+      let emoji = "💬";
+      if (message.content.includes("joined")) emoji = "👋";
+      else if (
+        message.content.includes("left") ||
+        message.content.includes("disconnected")
+      ) {
+        emoji = "❌";
+      }
+
+      toast(`${emoji} ${message.content}`);
     }
 
     function onDeleteMessage(messageId: string) {
-      setMessages((prevMessages) =>
-        prevMessages.filter((message) => message.id !== messageId)
-      );
+      setMessages((prev) => prev.filter((message) => message.id !== messageId));
     }
 
     socket.on("connect", onConnect);
@@ -79,7 +85,14 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <SocketContext.Provider
-      value={{ messages, sendMessage, isConnected, transport, deleteMessage }}
+      value={{
+        messages,
+        sendMessage,
+        deleteMessage,
+        isConnected,
+        transport,
+        socketId,
+      }}
     >
       {children}
     </SocketContext.Provider>
@@ -88,9 +101,8 @@ function SocketProvider({ children }: { children: React.ReactNode }) {
 
 const useSocket = (): SocketContextType => {
   const context = useContext(SocketContext);
-  if (!context) {
+  if (!context)
     throw new Error("useSocket must be used within a SocketProvider");
-  }
   return context;
 };
 

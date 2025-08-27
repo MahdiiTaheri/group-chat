@@ -5,7 +5,7 @@ import { springMotionProps } from "@/lib/motions";
 import { cn } from "@/lib/utils";
 import { Message } from "@/types";
 import { motion } from "framer-motion";
-import { Trash2, X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface ChatMessageProps {
@@ -13,8 +13,8 @@ interface ChatMessageProps {
 }
 
 const ChatMessage = ({ message }: ChatMessageProps) => {
-  const { deleteMessage } = useSocket();
-  const isUserMessage = message.userId !== "server";
+  const { deleteMessage, socketId } = useSocket();
+  const isUserMessage = message.userId === socketId;
 
   return (
     <motion.div
@@ -30,22 +30,17 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
     >
       {message.content}
 
-      <div
-        className="absolute bg-zinc-200 w-10 h-10 rounded-full flex items-center justify-center top-1/2 right-[-60px] transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 hover:bg-red-100 cursor-pointer"
-        onClick={() => {
-          deleteMessage(message.id!);
-          toast("Message deleted successfully", {
-            cancel: {
-              label: <X className="w-5 h-5" />,
-              onClick: () => {
-                //...
-              },
-            },
-          });
-        }}
-      >
-        <Trash2 className="w-5 h-5 text-red-700" />
-      </div>
+      {isUserMessage && (
+        <div
+          className="absolute bg-zinc-200 w-10 h-10 rounded-full flex items-center justify-center top-1/2 right-[-60px] transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 hover:bg-red-100 cursor-pointer"
+          onClick={() => {
+            deleteMessage(message.id!);
+            toast("Message deleted successfully");
+          }}
+        >
+          <Trash2 className="w-5 h-5 text-red-700" />
+        </div>
+      )}
     </motion.div>
   );
 };

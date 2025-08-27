@@ -10,4 +10,5 @@ export type SocketContextType = {
   deleteMessage: (id: string) => void;
   isConnected: boolean;
   transport: string;
+  socketId: string | undefined;
 };
